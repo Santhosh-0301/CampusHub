@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CampusHub — Student Academic Dashboard for managing courses, attendance, assignments, and profile." />
+  <title>CampusHub — Student Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===================== LOGIN PAGE ===================== -->
+  <section id="login-page" class="login-page">
+    <div class="login-card">
+      <h1 class="login-logo">&#127891; CampusHub</h1>
+      <p class="login-subtitle">Student Academic Dashboard</p>
+
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label for="login-name">Name</label>
+          <input type="text" id="login-name" placeholder="Enter your name" autocomplete="name" />
+          <span class="error-msg" id="name-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="login-reg">Register Number</label>
+          <input type="text" id="login-reg" placeholder="Enter your register number" autocomplete="off" />
+          <span class="error-msg" id="reg-error"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="login-btn">Login</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===================== DASHBOARD APP ===================== -->
+  <section id="app" class="app hidden">
+
+    <!-- ---------- Sidebar ---------- -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">&#127891; CampusHub</div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-tab="dashboard">&#9634; Dashboard</button>
+        <button class="nav-item" data-tab="courses">&#128218; Courses</button>
+        <button class="nav-item" data-tab="attendance">&#128203; Attendance</button>
+        <button class="nav-item" data-tab="assignments">&#128221; Assignments</button>
+        <button class="nav-item" data-tab="profile">&#128100; Profile</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="nav-item theme-toggle-sidebar" id="theme-toggle-sidebar" title="Toggle Theme">&#9790; Theme</button>
+        <button class="nav-item logout-btn" id="logout-sidebar">&#10140; Logout</button>
+      </div>
+    </aside>
+
+    <!-- ---------- Mobile Top Bar ---------- -->
+    <header class="mobile-header" id="mobile-header">
+      <button class="hamburger" id="hamburger" aria-label="Open menu">&#9776;</button>
+      <span class="mobile-brand">&#127891; CampusHub</span>
+      <button class="theme-toggle-mobile" id="theme-toggle-mobile" title="Toggle Theme">&#9790;</button>
+    </header>
+
+    <!-- ---------- Mobile Nav Overlay ---------- -->
+    <div class="mobile-nav-overlay hidden" id="mobile-nav-overlay"></div>
+
+    <!-- ---------- Main Content ---------- -->
+    <main class="main-content" id="main-content">
+
+      <!-- Top Bar -->
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <h2 class="welcome-text" id="welcome-text">Welcome back, Student</h2>
+          <p class="welcome-sub">Here's your academic overview.</p>
+        </div>
+        <div class="top-bar-right">
+          <button class="theme-toggle-btn" id="theme-toggle-topbar" title="Toggle Theme">&#9790;</button>
+          <div class="user-badge" id="user-badge">
+            <span class="user-badge-name" id="badge-name">Student</span>
+            <span class="user-badge-reg" id="badge-reg">REG000</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====== TAB: Dashboard ====== -->
+      <div class="tab-content active" id="tab-dashboard">
+
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+          <div class="card summary-card">
+            <span class="card-icon">&#128203;</span>
+            <div>
+              <p class="card-label">Attendance</p>
+              <p class="card-value" id="avg-attendance">87%</p>
+            </div>
+          </div>
+          <div class="card summary-card">
+            <span class="card-icon">&#128218;</span>
+            <div>
+              <p class="card-label">Courses</p>
+              <p class="card-value" id="total-courses">6</p>
+            </div>
+          </div>
+          <div class="card summary-card">
+            <span class="card-icon">&#9888;</span>
+            <div>
+              <p class="card-label">Pending Assignments</p>
+              <p class="card-value" id="pending-count">3</p>
+            </div>
+          </div>
+          <div class="card summary-card">
+            <span class="card-icon">&#10003;</span>
+            <div>
+              <p class="card-label">Completed</p>
+              <p class="card-value" id="completed-count">12</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Assignments -->
+        <section class="card section-card">
+          <h3 class="section-title">Recent Assignments</h3>
+          <ul class="recent-list" id="recent-assignments"></ul>
+        </section>
+
+        <!-- Recent Activity -->
+        <section class="card section-card">
+          <h3 class="section-title">Recent Activity</h3>
+          <ul class="activity-list" id="recent-activity"></ul>
+        </section>
+      </div>
+
+      <!-- ====== TAB: Courses ====== -->
+      <div class="tab-content" id="tab-courses">
+        <h3 class="section-title">Enrolled Courses</h3>
+        <div class="table-wrap">
+          <table class="data-table" id="courses-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Course</th>
+                <th>Faculty</th>
+                <th>Credits</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="courses-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ====== TAB: Attendance ====== -->
+      <div class="tab-content" id="tab-attendance">
+        <h3 class="section-title">Subject-wise Attendance</h3>
+        <div class="attendance-list" id="attendance-list"></div>
+      </div>
+
+      <!-- ====== TAB: Assignments ====== -->
+      <div class="tab-content" id="tab-assignments">
+        <div class="assignments-header">
+          <h3 class="section-title">All Assignments</h3>
+          <div class="filter-group" id="filter-group">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="Pending">Pending</button>
+            <button class="filter-btn" data-filter="Completed">Completed</button>
+          </div>
+        </div>
+        <div class="assignments-list" id="assignments-list"></div>
+      </div>
+
+      <!-- ====== TAB: Profile ====== -->
+      <div class="tab-content" id="tab-profile">
+        <div class="card profile-card">
+          <div class="profile-avatar" id="profile-avatar">S</div>
+          <div class="profile-details">
+            <div class="profile-row">
+              <span class="profile-label">Name</span>
+              <span class="profile-value" id="profile-name">Student</span>
+            </div>
+            <div class="profile-row">
+              <span class="profile-label">Register Number</span>
+              <span class="profile-value" id="profile-reg">REG000</span>
+            </div>
+            <div class="profile-row">
+              <span class="profile-label">Department</span>
+              <span class="profile-value">Computer Science &amp; Engineering</span>
+            </div>
+            <div class="profile-row">
+              <span class="profile-label">Year</span>
+              <span class="profile-value">III</span>
+            </div>
+            <div class="profile-row">
+              <span class="profile-label">Class</span>
+              <span class="profile-value">CSE – A</span>
+            </div>
+            <div class="profile-row">
+              <span class="profile-label">Email</span>
+              <span class="profile-value" id="profile-email">student@university.edu</span>
+            </div>
+          </div>
+          <button class="btn btn-secondary" id="edit-profile-btn">Edit Profile</button>
+        </div>
+
+        <!-- Edit Profile Modal -->
+        <div class="modal-overlay hidden" id="edit-modal-overlay">
+          <div class="modal card">
+            <h3 class="section-title">Edit Profile</h3>
+            <form id="edit-profile-form">
+              <div class="form-group">
+                <label for="edit-name">Name</label>
+                <input type="text" id="edit-name" placeholder="Enter new name" />
+              </div>
+              <div class="modal-actions">
+                <button type="button" class="btn btn-ghost" id="edit-cancel">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
