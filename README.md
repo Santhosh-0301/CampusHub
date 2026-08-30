@@ -1,5 +1,5 @@
 # CampusHub
-CampusHub - Student Academic Dashboard | Full Stack Web Development Mini Project
+CampusHub - Student Academic Dashboard
 A simple and responsive Student Academic Dashboard developed as a mini project for the Full Stack Web Development course.
 
 CampusHub provides students with a clean single-page interface to view their academic information such as courses, attendance, assignments, and profile details. The dashboard uses tab-based navigation, allowing users to switch between different sections without refreshing the webpage.
